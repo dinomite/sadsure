@@ -13,7 +13,7 @@ public class JobMonitor {
                 .scheduleAtFixedRate(getRunnable(jobHandler), 5, 5, TimeUnit.SECONDS);
     }
 
-    static Runnable getRunnable(JobHandler<Identifiable> jobHandler) {
+    public static <T extends Identifiable> Runnable getRunnable(JobHandler<T> jobHandler) {
         return () -> jobHandler.getJobs().forEach(job -> {
             // This is why we want jobs to be Identifiable
             logger.info("Working on {}", job.getIdentity());
